@@ -15,15 +15,15 @@ import glob
 histDirectory = '/data/submit/{}/SUEP/outputs/'.format(os.environ['USER'])
 # make a dictionary, keys are years, values are hitsogram tags
 signalTags = {
-    '2016': 'approval_2016',
-    '2016apv': 'approval_2016apv',
-    '2017': 'approval_2017',
-    '2018': 'approval',
+    '2016': 'Jan14_2016_unblindtest',
+    '2016apv': 'Jan14_2016apv_unblindtest',
+    '2017': 'Jan14_2017_unblindtest',
+    '2018': 'Jan14_2018_unblindtest',
 }
 dataTags = {
-    '2016': 'unblind',
-    '2017': 'unblind',
-    '2018': 'unblind',
+    '2016': 'Jan14_2016_unblindtest',
+    '2017': 'Jan14_2017_unblindtest',
+    '2018': 'Jan14_2018_unblindtest',
 }
 channel = 'offline'
 dataLabel = 'JetHT_A02'
@@ -34,11 +34,14 @@ missing_files = []
 
 signalFilelists = {}
 for year, tag in signalTags.items():
-    signalFilelists[year] = [ histFile for histFile in existing_files if histFile.endswith(tag+'.root')]
+    signalFilelists[year] = [ histFile for histFile in existing_files if 'GluGluToSUEP_HT400' in histFile and histFile.endswith(tag+'.root')]
 
 dataFilelists = {}
 for year, tag in dataTags.items():
-    dataFilelists[year] = [ histFile for histFile in existing_files if histFile.endswith(tag+'.root')]
+    dataFilelists[year] = [ histFile for histFile in existing_files if 'ScoutingPFHT' in histFile and histFile.endswith(tag+'.root')]
+    if year == '2016':
+        tag=tag.replace('2016','2016apv')
+        dataFilelists[year] += [ histFile for histFile in existing_files if 'ScoutingPFHT' in histFile and histFile.endswith(tag+'.root')]
 
 # print out missing samples
 if len(missing_files) > 0:
@@ -57,7 +60,7 @@ for year, tag in signalTags.items():
     output += 'data:\n'
     output += '  files:\n'
     for f in dataFilelists[year]:
-        output += '    - /{histDirectory}/{f}\n'.format(histDirectory=histDirectory, f=f)
+        output += '    - {histDirectory}/{f}\n'.format(histDirectory=histDirectory, f=f)
     output += '  type:\n'
     output += '    data\n'
     output += '  color: 895\n\n'
@@ -69,7 +72,7 @@ for year, tag in signalTags.items():
     for f in signalFilelists[year]:
 
         name = f.split('/')[-1].split('_TuneCP5')[0]+'_TuneCP5_13TeV-pythia8'
-
+        if "mS1500" not in name: continue
         files = '- {histDirectory}/{f}\n'.format(histDirectory=histDirectory, f=f)
         if f.replace(signalTags['2016'], signalTags['2016apv']) in signalFilelists['2016apv']:
             files += '    - {histDirectory}/{f}\n'.format(histDirectory=histDirectory, f=f.replace(signalTags['2016'], signalTags['2016apv']))
@@ -84,7 +87,7 @@ for year, tag in signalTags.items():
         ).format(name=name, files=files, user=os.environ['USER'])
 
     # write out the output
-    outfile = 'SUEP_test_{}.yaml'.format(year)
+    outfile = 'SUEP_test1_{}.yaml'.format(year)
     with open(outfile, 'w') as f:
         f.write(output)
     print("Wrote", outfile)

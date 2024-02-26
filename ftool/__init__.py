@@ -40,7 +40,7 @@ def draw_ratio(nom, uph, dwh, name):
 
 class datagroup:
      def __init__(self, files, observable="SUEP_nconst_Cluster ", era = 2018,  
-                  name = "QCD", channel="", kfactor=1.0, ptype="background",
+                  name = "QCD", channel="", signalscale=1.0, ptype="background",
                   luminosity= 1.0, rebin=1, bins=[], normalise=True,
                   xsections=None, mergecat=True, binrange=None):
           self._files  = files
@@ -52,6 +52,7 @@ class datagroup:
           self.xsec    = xsections
           self.outfile = None
           self.channel = channel
+          self.signalscale = signalscale
           self.nominal = {}
           self.systvar = set()
           self.rebin   = rebin
@@ -61,7 +62,9 @@ class datagroup:
           for fn in self._files:
 
                _proc = os.path.basename(fn).replace(".root","")
+               print('opening ',fn)
                _file = uproot.open(fn)
+               print("_file",_file)
                if not _file:
                     raise ValueError("%s is not a valid rootfile" % self.name)
 
@@ -70,11 +73,14 @@ class datagroup:
                _scale = 1
                if ptype.lower() != "data":
                    if '2016apv' in fn.lower():
-                    _scale = 19.497 * self.xs_scale(proc=self.name) # To treat the special 2016 case where 2016 and 2016 apv have different lumis
+                    _scale = 18.843 * self.xs_scale(proc=self.name) # To treat the special 2016 case where 2016 and 2016 apv have different lumis
                    elif '2016' in fn:
                     _scale = 16.811 * self.xs_scale(proc=self.name)
                    else:
                     _scale = self.lumi * self.xs_scale(proc=self.name)
+
+               if self.ptype == "signal":
+                    _scale *= self.signalscale
 
                if self.name == "expected" and "I_" in self.observable:
                     sum_var = 'x' #Change this to a y to look at the sphericity instead of nconst
@@ -172,7 +178,7 @@ class datagroup:
 
           self.merged = {}
           self.merged = {i: (i, c) for i,c  in self.nominal.items()}
-
+          print("self.merged ",self.merged)
 
      
      def check_shape(self, histogram):
@@ -300,6 +306,7 @@ class datacard:
           self.nuisances[name][process] = value
 
      def add_nominal(self, process, channel,  shape):
+          print(shape)
           if process == 'expected': 
                shape = shape * 0.0 + 1.0#values will come from rate_params
                shape.view().variance = shape.variances() * 0.0
@@ -348,6 +355,7 @@ class datacard:
           # name rateParam bin process initial_value [min,max]
           rera = "r" + era
           template = "{name} rateParam {channel} {process} @5*(@8+@9+@10+@11+@12)*@7*@7*@3*@3*@1*@1/(@6*@2*@0*@4*@4*@4*@4) {rera}_cat_crA,{rera}_cat_crB,{rera}_cat_crC,{rera}_cat_crD,{rera}_cat_crE,{rera}_{F},{rera}_cat_crG,{rera}_cat_crH,{rera}_Bin1crF,{rera}_Bin2crF,{rera}_Bin3crF,{rera}_Bin4crF,{rera}_Bin0crF"
+          #template = "{name} rateParam {channel} {process} @5*(@8+@9+@10+@11)*@7*@7*@3*@3*@1*@1/(@6*@2*@0*@4*@4*@4*@4) {rera}_cat_crA,{rera}_cat_crB,{rera}_cat_crC,{rera}_cat_crD,{rera}_cat_crE,{rera}_{F},{rera}_cat_crG,{rera}_cat_crH,{rera}_Bin1crF,{rera}_Bin2crF,{rera}_Bin3crF,{rera}_Bin0crF"
           template = template.format(
                name = name,
                channel = channel,

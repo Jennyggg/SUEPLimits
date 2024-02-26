@@ -8,9 +8,9 @@ from termcolor import colored
 
 # from: https://twiki.cern.ch/twiki/bin/viewauth/CMS/LumiRecommendationsRun2#Combination_and_correlations
 lumis = {
-    "2016" : 16.811, #2016apv lumi 19.498 is applied in ftool IFF the filename contains 2016apv
-    "2017" : 41.471,
-    "2018" : 59.817
+    "2016" : 16.705, #2016apv lumi 19.498 is applied in ftool IFF the filename contains 2016apv
+    "2017" : 35.719,
+    "2018" : 58.965
 }
 
 lumi_uncorr = {
@@ -32,41 +32,41 @@ lumi_corr1718 = {
 
 # Shape closure systematic applied to data (from F/C)
 shape_extrapolated_Bin0 = { # Bin0 is used as validation region and therefore not anymore in combine fit
-    "2016" : 1.00,
-    "2017" : 1.00,
-    "2018" : 1.00,
-    "all": 1.00
+    "2016" : 1.0003,
+    "2017" : 1.0007,
+    "2018" : 1.0008,
+    "all": 1.006
 }
 shape_extrapolated_Bin1 = {
-    "2016" : 1.00,
-    "2017" : 1.00,
-    "2018" : 1.00,
-    "all": 1.00
+    "2016" : 1.036,
+    "2017" : 1.015,
+    "2018" : 1.068,
+    "all": 1.049
 }
 shape_extrapolated_Bin2 = {
-    "2016" : 1.00,
-    "2017" : 1.00,
-    "2018" : 1.00,
-    "all": 1.00
+    "2016" : 1.072,
+    "2017" : 1.033,
+    "2018" : 1.144,
+    "all": 1.105
 }
 shape_extrapolated_Bin3 = {
-    "2016" : 1.00,
-    "2017" : 1.00,
-    "2018" : 1.00,
-    "all": 1.00
+    "2016" : 1.161,
+    "2017" : 1.074,
+    "2018" : 1.334,
+    "all": 1.242
 }
 shape_extrapolated_Bin4 = {
-    "2016" : 1.00,
-    "2017" : 1.00,
-    "2018" : 1.00,
-    "all": 1.00
+    "2016" : 2.00,
+    "2017" : 2.00,
+    "2018" : 2.00,
+    "all": 2.00
 }
 
 # ABCD closure systematic applied to data (from ISR)
 closure_systs = {
-    "2016": 1.10,
-    "2017": 1.10,
-    "2018": 1.10
+    "2016": 1.33,
+    "2017": 1.33,
+    "2018": 1.33
 }
 
 
@@ -81,6 +81,7 @@ def main():
     parser.add_argument("-era", "--era"     , type=str, default="2017")
     parser.add_argument("-f"  , "--force"   , action="store_true")
     parser.add_argument("-ns" , "--nostatuncert", action="store_false")
+    parser.add_argument("--signalscale",type=float,default=1.0)
     parser.add_argument("--binrange" ,nargs='+', type=int, default=100)
     parser.add_argument("--rebin" ,type=int, default=1)
     parser.add_argument("--bins",'--list', nargs='*', help='<Required> Set flag', required=False,default=[])
@@ -108,13 +109,14 @@ def main():
     signal = ""
     for dg in options.stack:
         print('dg',dg)
+        print('files',inputs[dg]["files"])
         p = ftool.datagroup( 
             inputs[dg]["files"],
             ptype      = inputs[dg]["type"], 
             observable = options.variable,
             era        = options.era,
             name       = dg,
-            kfactor    = inputs[dg].get("kfactor", 1.0),
+            signalscale    = options.signalscale,
             xsections  = xsections,
             channel    = options.channel,
             rebin      = options.rebin,
