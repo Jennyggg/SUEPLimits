@@ -22,7 +22,7 @@ slurm_script_template = '''#!/bin/bash
 #SBATCH --error={log_dir}{sample}.err
 #SBATCH --time=10:00:00
 #SBATCH --mem=3GB
-#SBATCH --partition=submit-alma9
+#SBATCH --partition=submit
 
 source ~/.bashrc
 cd {work_dir}
@@ -58,7 +58,9 @@ def main():
             'cat_crA','cat_crB','cat_crC','cat_crD','cat_crE','cat_crG','cat_crH']
     #config_file = "config/SUEP_scouting_{}.yaml"
     config_file = "config/SUEP_test1_{}.yaml"
-    years = ['2016', '2017', '2018']
+    #years = ['2016', '2017', '2018']
+    years = ['2017C','2017D','2017E','2017F']
+    #years = ['2017']
 
     if options.method == 'multithread':
         n_cpus = min(multiprocessing.cpu_count(), options.cores)

@@ -10,13 +10,17 @@ from termcolor import colored
 lumis = {
     "2016" : 16.705, #2016apv lumi 19.498 is applied in ftool IFF the filename contains 2016apv
     "2017" : 35.719,
-    "2018" : 58.965
+    "2018" : 54.745,
+    "2017C": 8.408,
+    "2017D": 4.320,
+    "2017E": 9.424,
+    "2017F": 13.567
 }
 
 lumi_uncorr = {
     "2016" : 1.010,
     "2017" : 1.020,
-    "2018" : 1.015
+    "2018" : 1.015,
 }
 
 lumi_corr = {
@@ -32,28 +36,28 @@ lumi_corr1718 = {
 
 # Shape closure systematic applied to data (from F/C)
 shape_extrapolated_Bin0 = { # Bin0 is used as validation region and therefore not anymore in combine fit
-    "2016" : 1.0003,
-    "2017" : 1.0007,
-    "2018" : 1.0008,
-    "all": 1.006
+    "2016" : 1.0036,#1.0003,
+    "2017" : 1.0073,#1.0007,
+    "2018" : 1.0100,#1.0008,
+    "all": 1.0084#1.006
 }
 shape_extrapolated_Bin1 = {
-    "2016" : 1.036,
-    "2017" : 1.015,
-    "2018" : 1.068,
+    "2016" : 1.0911,#1.036,
+    "2017" : 1.0948,#1.015,
+    "2018" : 1.1106,#1.068,
     "all": 1.049
 }
 shape_extrapolated_Bin2 = {
-    "2016" : 1.072,
-    "2017" : 1.033,
-    "2018" : 1.144,
-    "all": 1.105
+    "2016" : 1.1859,#1.072,
+    "2017" : 1.1968,#1.033,
+    "2018" : 1.2311,#1.144,
+    "all": 1.1983#1.105
 }
 shape_extrapolated_Bin3 = {
-    "2016" : 1.161,
-    "2017" : 1.074,
-    "2018" : 1.334,
-    "all": 1.242
+    "2016" : 1.4228,#1.161,
+    "2017" : 1.4518,#1.074,
+    "2018" : 1.5326,#1.334,
+    "all": 1.4567#1.242
 }
 shape_extrapolated_Bin4 = {
     "2016" : 2.00,
@@ -63,10 +67,17 @@ shape_extrapolated_Bin4 = {
 }
 
 # ABCD closure systematic applied to data (from ISR)
+#closure_systs = {
+#    "2016": 1.33,
+#    "2017": 1.33,
+#    "2018": 1.33
+#}
+
+# estimation from MC
 closure_systs = {
-    "2016": 1.33,
-    "2017": 1.33,
-    "2018": 1.33
+    "2016": 1.17,
+    "2017": 1.17,
+    "2018": 1.17
 }
 
 
@@ -159,19 +170,19 @@ def main():
                 
                 if "Bin1" in options.channel:
                     Bin_cr = "Bin1crF"
-                    shape_syst = shape_extrapolated_Bin1[options.era]
+                    shape_syst = shape_extrapolated_Bin1[options.era[0:4]]
                 if "Bin2" in options.channel:
                     Bin_cr = "Bin2crF"
-                    shape_syst = shape_extrapolated_Bin2[options.era]
+                    shape_syst = shape_extrapolated_Bin2[options.era[0:4]]
                 if "Bin3" in options.channel:
                     Bin_cr = "Bin3crF"
-                    shape_syst = shape_extrapolated_Bin3[options.era]
+                    shape_syst = shape_extrapolated_Bin3[options.era[0:4]]
                 if "Bin4" in options.channel:
                     Bin_cr = "Bin4crF"
-                    shape_syst = shape_extrapolated_Bin4[options.era]
+                    shape_syst = shape_extrapolated_Bin4[options.era[0:4]]
                     
                 # real
-                closure_syst = closure_systs[options.era]
+                closure_syst = closure_systs[options.era[0:4]]
                 
                 # correlated between years, bins
                 #N/A
@@ -197,10 +208,11 @@ def main():
         if p.ptype=="data": continue #Now that we have expected nom we skip data
 
         #Add lnN nuisances
-        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_uncorr_{}".format(options.era)), lumi_uncorr[options.era])
-        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_corr"), lumi_corr[options.era])
-        if options.era in ["2017","2018"]:
-            card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_corr1718"), lumi_corr1718[options.era])
+        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_uncorr_{}".format(options.era[0:4])), lumi_uncorr[options.era[0:4]])
+        card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_corr"), lumi_corr[options.era[0:4]])
+        #if options.era in ["2017","2018"]:
+        if "2017" in options.era or "2018" in options.era:
+            card.add_nuisance(name, "{:<21}  lnN".format("CMS_lumi_corr1718"), lumi_corr1718[options.era[0:4]])
 
         #Shape based uncertainties
         #card.add_shape_nuisance(name, "CMS_JES_{}".format(options.era), p.get("JES"))
@@ -210,7 +222,8 @@ def main():
         card.add_shape_nuisance(name, "CMS_PS_ISR_{}".format(options.era), p.get("PSWeight_ISR"))
         card.add_shape_nuisance(name, "CMS_PS_FSR_{}".format(options.era), p.get("PSWeight_FSR"))
         card.add_shape_nuisance(name, "CMS_trk_kill_{}".format(options.era), p.get("track"))
-        if options.era == "2016" or options.era == "2017":
+        #if options.era == "2016" or options.era == "2017":
+        if "2016" in options.era or "2017" in options.era:
              card.add_shape_nuisance(name, "CMS_Prefire", p.get("prefire"))
         if "mS125" in p.name:
              card.add_shape_nuisance(name, "CMS_Higgs", p.get("higgs_weights"))
