@@ -1,0 +1,98 @@
+data:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017C-v1+RAW_July23_17.root
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017D-v1+RAW_July23_17.root
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017E-v1+RAW_July23_17.root
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017F-v1+RAW_July23_17.root
+  type:
+    data
+  color: 895
+
+expected:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017C-v1+RAW_July23_17.root
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017D-v1+RAW_July23_17.root
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017E-v1+RAW_July23_17.root
+    - /data/submit/jinw65/SUEP/outputs//ScoutingPFHT+Run2017F-v1+RAW_July23_17.root
+  type:
+    data
+  color: 895
+
+GluGluToSUEP_HT400_T3p00_mS125.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS125.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS200.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS200.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS300.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS300.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS400.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS400.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS500.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS500.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS600.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS600.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS700.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS700.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS800.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS800.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS900.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS900.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS1000.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS1000.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS1200.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS1200.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS1500.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS1500.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+
+GluGluToSUEP_HT400_T3p00_mS2000.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV-pythia8:
+  files:
+    - /data/submit/jinw65/SUEP/outputs//GluGluToSUEP_HT400_T3p00_mS2000.000_mPhi3.000_T3.000_modegeneric_TuneCP5_13TeV_July23_17generic.root
+  type:
+    signal
+

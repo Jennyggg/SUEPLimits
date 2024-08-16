@@ -75,7 +75,7 @@ class datagroup:
                    if '2016apv' in fn.lower():
                     _scale = 18.843 * self.xs_scale(proc=self.name) # To treat the special 2016 case where 2016 and 2016 apv have different lumis
                    elif '2016' in fn:
-                    _scale = 16.811 * self.xs_scale(proc=self.name)
+                    _scale = 16.705 * self.xs_scale(proc=self.name)
                    else:
                     _scale = self.lumi * self.xs_scale(proc=self.name)
 
@@ -105,20 +105,33 @@ class datagroup:
                             else:
                                 sys = name.split("Cluster_")[1]
                             systs.append(sys)
+                        elif "ht540" in name:
+                            sys = "JEC_up"
+                            systs.append(sys)
+                        elif "ht580" in name:
+                            sys = "JEC_down"
+                            systs.append(sys)
                         else:
                             sys = ""
                             if "I_" in name: systs.append("nom")
 
                         if sum_var == 'x':
+                            print("name",name)
+                            print(ABCD_obs)
                             if "F_"+ABCD_obs == name: F["nom"] = _file["F_"+ABCD_obs].to_boost()
                             if "F_"+ABCD_obs+"_"+sys == name: F[sys] = _file["F_"+ABCD_obs+"_"+sys].to_boost()
+                            if "F_"+ABCD_obs+"_ht540" == name: F[sys] = _file["F_"+ABCD_obs+"_ht540"].to_boost()
+                            if "F_"+ABCD_obs+"_ht580" == name: F[sys] = _file["F_"+ABCD_obs+"_ht580"].to_boost()
+                            print(sys)
 
                         elif sum_var == 'y': 
                             if "H_"+ABCD_obs == name: H["nom"] = _file["H_"+ABCD_obs].to_boost()
                             if "H_"+ABCD_obs+"_"+sys == name: H[sys] = _file["H_"+ABCD_obs+"_"+sys].to_boost()
+                            if "H_"+ABCD_obs+"_ht540" == name: H[sys] = _file["H_"+ABCD_obs+"_ht540"].to_boost()
+                            if "H_"+ABCD_obs+"_ht580" == name: H[sys] = _file["H_"+ABCD_obs+"_ht580"].to_boost()
                         else:
                             raise ValueError('ERROR: Appropriate variable not chosen!')
-                            
+                    print(F.keys())        
                     for syst in systs:
                         name = ABCD_obs+"_"+syst
                         if sum_var == 'x':
@@ -138,6 +151,8 @@ class datagroup:
                         
                         name = self.channel + "_" + name
                         newhist.name = name
+                        print("self.nominal.keys()",self.nominal.keys())
+                        print("name to add",name)
                         if name in self.nominal.keys():
                              self.nominal[name] += newhist# * 0.0 + 1.0
                         else:
@@ -163,7 +178,8 @@ class datagroup:
                         ####merge bins to specified array
                         if len(self.bins)!=0 and newhist.values().ndim == 1:#written only for 1D right now
                             newhist = self.rebin_piecewise(newhist, self.bins, 'bh')
-                        
+                        name = name.replace("ht540","JEC_up") 
+                        name = name.replace("ht580","JEC_down")
                         name = self.channel + "_" + name
                         newhist.name = name
                         if name in self.nominal.keys():
@@ -317,7 +333,7 @@ class datacard:
 
      def add_shape_nuisance(self, process, cardname, shape, symmetric=False):
           nuisance = "{:<20} shape".format(cardname)          
-
+          print("shape: ",shape)
           if shape[0] is not None:
                
                if symmetric: # apply a symmetric variation to up using nominal and down

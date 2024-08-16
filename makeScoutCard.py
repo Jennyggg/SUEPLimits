@@ -36,28 +36,28 @@ lumi_corr1718 = {
 
 # Shape closure systematic applied to data (from F/C)
 shape_extrapolated_Bin0 = { # Bin0 is used as validation region and therefore not anymore in combine fit
-    "2016" : 1.0036,#1.0003,
-    "2017" : 1.0073,#1.0007,
-    "2018" : 1.0100,#1.0008,
-    "all": 1.0084#1.006
+    "2016" : 1.0037,#1.0003,
+    "2017" : 1.0002,#1.0007,
+    "2018" : 1.0072,#1.0008,
+    "all": 1.0055#1.006
 }
 shape_extrapolated_Bin1 = {
-    "2016" : 1.0911,#1.036,
-    "2017" : 1.0948,#1.015,
-    "2018" : 1.1106,#1.068,
-    "all": 1.049
+    "2016" : 1.0162,#1.036,
+    "2017" : 1.0014,#1.015,
+    "2018" : 1.0624,#1.068,
+    "all": 1.0485
 }
 shape_extrapolated_Bin2 = {
-    "2016" : 1.1859,#1.072,
-    "2017" : 1.1968,#1.033,
-    "2018" : 1.2311,#1.144,
-    "all": 1.1983#1.105
+    "2016" : 1.0360,#1.072,
+    "2017" : 1.0026,#1.033,
+    "2018" : 1.1319,#1.144,
+    "all": 1.1025#1.105
 }
 shape_extrapolated_Bin3 = {
-    "2016" : 1.4228,#1.161,
-    "2017" : 1.4518,#1.074,
-    "2018" : 1.5326,#1.334,
-    "all": 1.4567#1.242
+    "2016" : 1.0857,#1.161,
+    "2017" : 1.0057,#1.074,
+    "2018" : 1.3058,#1.334,
+    "all": 1.2375#1.242
 }
 shape_extrapolated_Bin4 = {
     "2016" : 2.00,
@@ -73,11 +73,10 @@ shape_extrapolated_Bin4 = {
 #    "2018": 1.33
 #}
 
-# estimation from MC
 closure_systs = {
-    "2016": 1.17,
-    "2017": 1.17,
-    "2018": 1.17
+    "2016": 1.19,
+    "2017": 1.19,
+    "2018": 1.19
 }
 
 
@@ -218,7 +217,8 @@ def main():
         #card.add_shape_nuisance(name, "CMS_JES_{}".format(options.era), p.get("JES"))
         #card.add_shape_nuisance(name, "CMS_JER", p.get("JER"))
         card.add_shape_nuisance(name, "CMS_PU", p.get("puweights"))
-        #card.add_shape_nuisance(name, "CMS_trigSF_{}".format(options.era), p.get("trigSF"))
+        card.add_shape_nuisance(name, "CMS_JEC_{}".format(options.era), p.get("JEC"))
+        card.add_shape_nuisance(name, "CMS_trigSF_{}".format(options.era), p.get("trigSF"))
         card.add_shape_nuisance(name, "CMS_PS_ISR_{}".format(options.era), p.get("PSWeight_ISR"))
         card.add_shape_nuisance(name, "CMS_PS_FSR_{}".format(options.era), p.get("PSWeight_FSR"))
         card.add_shape_nuisance(name, "CMS_trk_kill_{}".format(options.era), p.get("track"))

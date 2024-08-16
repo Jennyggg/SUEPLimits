@@ -15,15 +15,15 @@ import glob
 histDirectory = '/data/submit/{}/SUEP/outputs/'.format(os.environ['USER'])
 # make a dictionary, keys are years, values are hitsogram tags
 signalTags = {
-    '2016': 'Jan14_2016_unblindtest',
-    '2016apv': 'Jan14_2016apv_unblindtest',
-    '2017': 'Jan14_2017_unblindtest',
-    '2018': 'Jan14_2018_unblindtest',
+    '2016': 'Aug15_16_generic_invertoffline',
+    '2016apv': 'Aug15_16apv_generic_invertoffline',
+    '2017': 'Aug15_17_generic_invertoffline',
+    '2018': 'Aug15_18_generic_invertoffline',
 }
 dataTags = {
-    '2016': 'Jan14_2016_unblindtest',
-    '2017': 'Jan14_2017_unblindtest',
-    '2018': 'Jan14_2018_unblindtest',
+    '2016': 'Aug15_16_data_invertoffline',
+    '2017': 'Aug15_17_data_invertoffline',
+    '2018': 'Aug15_18_data_invertoffline',
 }
 channel = 'offline'
 dataLabel = 'JetHT_A02'
@@ -40,7 +40,7 @@ dataFilelists = {}
 for year, tag in dataTags.items():
     dataFilelists[year] = [ histFile for histFile in existing_files if 'ScoutingPFHT' in histFile and histFile.endswith(tag+'.root')]
     if year == '2016':
-        tag=tag.replace('2016','2016apv')
+        tag=tag.replace('16','16apv')
         dataFilelists[year] += [ histFile for histFile in existing_files if 'ScoutingPFHT' in histFile and histFile.endswith(tag+'.root')]
 
 # print out missing samples
@@ -72,7 +72,7 @@ for year, tag in signalTags.items():
     for f in signalFilelists[year]:
 
         name = f.split('/')[-1].split('_TuneCP5')[0]+'_TuneCP5_13TeV-pythia8'
-        if "mS1500" not in name: continue
+        #if "mS1500" not in name: continue
         files = '- {histDirectory}/{f}\n'.format(histDirectory=histDirectory, f=f)
         if f.replace(signalTags['2016'], signalTags['2016apv']) in signalFilelists['2016apv']:
             files += '    - {histDirectory}/{f}\n'.format(histDirectory=histDirectory, f=f.replace(signalTags['2016'], signalTags['2016apv']))
@@ -87,7 +87,7 @@ for year, tag in signalTags.items():
         ).format(name=name, files=files, user=os.environ['USER'])
 
     # write out the output
-    outfile = 'SUEP_test1_{}.yaml'.format(year)
+    outfile = 'SUEP_scouting_generic_invertoffline_{}.yaml'.format(year)
     with open(outfile, 'w') as f:
         f.write(output)
     print("Wrote", outfile)

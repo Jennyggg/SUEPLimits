@@ -48,6 +48,9 @@ def main():
     parser.add_argument(
         "-t", "--tag", type=str, default='cards', help="Output tag for cards. Creates a subfolder and puts cards there."
     )
+    parser.add_argument(
+        "-config", "--config", type=str, default="config/SUEP_scouting_leptonic_{}.yaml", help="Config files. Leave the year in {}"
+    )
     parser.add_argument("-include", "--include", type=str, default='', help="Pass a '-' separated list of strings you want your samples to include. e.g. generic-mPhi300 will only run samples that contain 'generic' and 'mPhi300' in the name.")
     options = parser.parse_args()
     # these are hardcoded in for now
@@ -57,9 +60,10 @@ def main():
             'Bin3crF','Bin4crF', # pre approval
             'cat_crA','cat_crB','cat_crC','cat_crD','cat_crE','cat_crG','cat_crH']
     #config_file = "config/SUEP_scouting_{}.yaml"
-    config_file = "config/SUEP_test1_{}.yaml"
-    #years = ['2016', '2017', '2018']
-    years = ['2017C','2017D','2017E','2017F']
+    #config_file = "config/SUEP_scouting_leptonic_{}.yaml"
+    config_file = options.config
+    years = ['2016', '2017', '2018']
+    #years = ['2017C','2017D','2017E','2017F']
     #years = ['2017']
 
     if options.method == 'multithread':
@@ -111,144 +115,144 @@ def main():
             cmd_crA += "--variable A_SUEP_nconst_Cluster "
             cmd_crA += "--stack {signal} expected data "
             cmd_crA += "--bins 0 2000 "
-            cmd_crA += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crA += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crA += "--signalscale 0.6626951755537387"
-            cmd_crA += "--signalscale 0.9608102410006427"
+            #cmd_crA += "--signalscale 0.9608102410006427"
             cmd_crA = cmd_crA.format(tag=options.tag, signal=n, era=year)
 
             cmd_crB = "python3 makeScoutCard.py --tag {tag} --channel cat_crB "
             cmd_crB += "--variable B_SUEP_nconst_Cluster "
             cmd_crB += "--stack {signal} expected data "
             cmd_crB += "--bins 0 2000 "
-            cmd_crB += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crB += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crB += "--signalscale 0.6626951755537387"
-            cmd_crB += "--signalscale 0.9608102410006427"
+            #cmd_crB += "--signalscale 0.9608102410006427"
             cmd_crB = cmd_crB.format(tag=options.tag, signal=n, era=year)
 
             cmd_crC = "python3 makeScoutCard.py --tag {tag} --channel cat_crC "
             cmd_crC += "--variable C_SUEP_nconst_Cluster "
             cmd_crC += "--stack {signal} expected data "
             cmd_crC += "--bins 0 2000 "
-            cmd_crC += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crC += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crC += "--signalscale 0.6626951755537387"
-            cmd_crC += "--signalscale 0.9608102410006427"
+            #cmd_crC += "--signalscale 0.9608102410006427"
             cmd_crC = cmd_crC.format(tag=options.tag, signal=n, era=year)
 
             cmd_crD = "python3 makeScoutCard.py --tag {tag} --channel cat_crD "
             cmd_crD += "--variable D_SUEP_nconst_Cluster "
             cmd_crD += "--stack {signal} expected data "
             cmd_crD += "--bins 0 2000 "
-            cmd_crD += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crD += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crD += "--signalscale 0.6626951755537387"
-            cmd_crD += "--signalscale 0.9608102410006427"
+            #cmd_crD += "--signalscale 0.9608102410006427"
             cmd_crD = cmd_crD.format(tag=options.tag, signal=n, era=year)
 
             cmd_crE = "python3 makeScoutCard.py --tag {tag} --channel cat_crE "
             cmd_crE += "--variable E_SUEP_nconst_Cluster "
             cmd_crE += "--stack {signal} expected data "
             cmd_crE += "--bins 0 2000 "
-            cmd_crE += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crE += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crE += "--signalscale 0.6626951755537387"
-            cmd_crE += "--signalscale 0.9608102410006427"
+            #cmd_crE += "--signalscale 0.9608102410006427"
             cmd_crE = cmd_crE.format(tag=options.tag, signal=n, era=year)
 
             cmd_crF0 = "python3 makeScoutCard.py --tag {tag} --channel Bin0crF "
             cmd_crF0 += "--variable F_SUEP_nconst_Cluster "
             cmd_crF0 += "--stack {signal} expected data "
             cmd_crF0 += "--bins 50 60 "
-            cmd_crF0 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crF0 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crF0 += "--signalscale 0.6626951755537387"
-            cmd_crF0 += "--signalscale 0.9608102410006427"
+            #cmd_crF0 += "--signalscale 0.9608102410006427"
             cmd_crF0 = cmd_crF0.format(tag=options.tag, signal=n, era=year)
 
             cmd_crF1 = "python3 makeScoutCard.py --tag {tag} --channel Bin1crF "
             cmd_crF1 += "--variable F_SUEP_nconst_Cluster "
             cmd_crF1 += "--stack {signal} expected data "
             cmd_crF1 += "--bins 60 70 "
-            cmd_crF1 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crF1 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crF1 += "--signalscale 0.6626951755537387"
-            cmd_crF1 += "--signalscale 0.9608102410006427"
+            #cmd_crF1 += "--signalscale 0.9608102410006427"
             cmd_crF1 = cmd_crF1.format(tag=options.tag, signal=n, era=year)
 
             cmd_crF2 = "python3 makeScoutCard.py --tag {tag} --channel Bin2crF "
             cmd_crF2 += "--variable F_SUEP_nconst_Cluster "
             cmd_crF2 += "--stack {signal} expected data "
             cmd_crF2 += "--bins 70 80 "
-            cmd_crF2 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crF2 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crF2 += "--signalscale 0.6626951755537387"
-            cmd_crF2 += "--signalscale 0.9608102410006427"
+            #cmd_crF2 += "--signalscale 0.9608102410006427"
             cmd_crF2 = cmd_crF2.format(tag=options.tag, signal=n, era=year)
 
             cmd_crF3 = "python3 makeScoutCard.py --tag {tag} --channel Bin3crF "
             cmd_crF3 += "--variable F_SUEP_nconst_Cluster "
             cmd_crF3 += "--stack {signal} expected data "
             cmd_crF3 += "--bins 80 120 "
-            cmd_crF3 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crF3 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crF3 += "--signalscale 0.6626951755537387"
-            cmd_crF3 += "--signalscale 0.9608102410006427"
+            #cmd_crF3 += "--signalscale 0.9608102410006427"
             cmd_crF3 = cmd_crF3.format(tag=options.tag, signal=n, era=year)
 
             cmd_crF4 = "python3 makeScoutCard.py --tag {tag} --channel Bin4crF "
             cmd_crF4 += "--variable F_SUEP_nconst_Cluster "
             cmd_crF4 += "--stack {signal} expected data "
             cmd_crF4 += "--bins 120 2000 "
-            cmd_crF4 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crF4 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crF4 += "--signalscale 0.6626951755537387"
-            cmd_crF4 += "--signalscale 0.9608102410006427"
+            #cmd_crF4 += "--signalscale 0.9608102410006427"
             cmd_crF4 = cmd_crF4.format(tag=options.tag, signal=n, era=year)
 
             cmd_crG = "python3 makeScoutCard.py --tag {tag} --channel cat_crG "
             cmd_crG += "--variable G_SUEP_nconst_Cluster "
             cmd_crG += "--stack {signal} expected data "
             cmd_crG += "--bins 0 2000 "
-            cmd_crG += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crG += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crG += "--signalscale 0.6626951755537387"
-            cmd_crG += "--signalscale 0.9608102410006427"
+            #cmd_crG += "--signalscale 0.9608102410006427"
             cmd_crG = cmd_crG.format(tag=options.tag, signal=n, era=year)
 
             cmd_crH = "python3 makeScoutCard.py --tag {tag} --channel cat_crH "
             cmd_crH += "--variable H_SUEP_nconst_Cluster "
             cmd_crH += "--stack {signal} expected data "
             cmd_crH += "--bins 0 2000 "
-            cmd_crH += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_crH += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_crH += "--signalscale 0.6626951755537387"
-            cmd_crH += "--signalscale 0.9608102410006427"
+            #cmd_crH += "--signalscale 0.9608102410006427"
             cmd_crH = cmd_crH.format(tag=options.tag, signal=n, era=year)
 
             cmd_sr1 = "python3 makeScoutCard.py --tag {tag} --channel Bin1Sig "
             cmd_sr1 += "--variable I_SUEP_nconst_Cluster "
             cmd_sr1 += "--stack {signal} expected data "
             cmd_sr1 += "--bins 60 70 "
-            cmd_sr1 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_sr1 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_sr1 += "--signalscale 0.6626951755537387"
-            cmd_sr1 += "--signalscale 0.9608102410006427"
+            #cmd_sr1 += "--signalscale 0.9608102410006427"
             cmd_sr1 = cmd_sr1.format(tag=options.tag, signal=n, era=year)
 
             cmd_sr2 = "python3 makeScoutCard.py --tag {tag} --channel Bin2Sig "
             cmd_sr2 += "--variable I_SUEP_nconst_Cluster "
             cmd_sr2 += "--stack {signal} expected data "
             cmd_sr2 += "--bins 70 80 "
-            cmd_sr2 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_sr2 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_sr2 += "--signalscale 0.6626951755537387"
-            cmd_sr2 += "--signalscale 0.9608102410006427"
+            #cmd_sr2 += "--signalscale 0.9608102410006427"
             cmd_sr2 = cmd_sr2.format(tag=options.tag, signal=n, era=year)
 
             cmd_sr3 = "python3 makeScoutCard.py --tag {tag} --channel Bin3Sig "
             cmd_sr3 += "--variable I_SUEP_nconst_Cluster "
             cmd_sr3 += "--stack {signal} expected data "
             cmd_sr3 += "--bins 80 120 "
-            cmd_sr3 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_sr3 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_sr3 += "--signalscale 0.6626951755537387"
-            cmd_sr3 += "--signalscale 0.9608102410006427"
+            #cmd_sr3 += "--signalscale 0.9608102410006427"
             cmd_sr3 = cmd_sr3.format(tag=options.tag, signal=n, era=year)
 
             cmd_sr4 = "python3 makeScoutCard.py --tag {tag} --channel Bin4Sig "
             cmd_sr4 += "--variable I_SUEP_nconst_Cluster "
             cmd_sr4 += "--stack {signal} expected data "
             cmd_sr4 += "--bins 120 2000 "
-            cmd_sr4 += "--input=config/SUEP_scouting_{era}.yaml --era={era} "
+            cmd_sr4 += "--input="+config_file.replace("{}","{era}")+" --era={era} "
             #cmd_sr4 += "--signalscale 0.6626951755537387"
-            cmd_sr4 += "--signalscale 0.9608102410006427"
+            #cmd_sr4 += "--signalscale 0.9608102410006427"
             cmd_sr4 = cmd_sr4.format(tag=options.tag, signal=n, era=year)   
 
 
